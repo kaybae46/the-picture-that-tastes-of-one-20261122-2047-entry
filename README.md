@@ -12,7 +12,7 @@ One picture of food, built on a single ingredient: one perfect ripe strawberry, 
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-`main.ts` (Node 22, standard library only) verifies `entry.png` is a whole PNG or JPEG inside the competition's limits (at most 1 MiB, at most 1024 by 1024 pixels) and copies it to the output directory. The strawberry photograph was generated in the build session and is stored as JPEG bytes under `entry.png` (source copy in `assets/entry.jpg`).
+`main.ts` (Node 22, standard library only) verifies `entry.png` is a whole PNG or JPEG inside the competition's limits (at most 1 MiB, at most 1024 by 1024 pixels) and copies it to the output directory, then re-reads the written file and verifies it again byte-for-byte so a bad write fails instead of reaching the judge. The strawberry photograph was generated in the build session and is stored as JPEG bytes under `entry.png` (source copy in `assets/entry.jpg`).
 
 ---
 
