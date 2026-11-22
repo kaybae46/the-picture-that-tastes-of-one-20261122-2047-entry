@@ -1,19 +1,46 @@
-# the-picture-that-tastes-of-one-20261122-2047-entry
+# One Mango, Perfectly Ripe
 
 [![make.fun · the-picture-that-tastes-of-one-20261122-2047](https://make.fun/badge/the-picture-that-tastes-of-one-20261122-2047.svg)](https://make.fun/bounty/the-picture-that-tastes-of-one-20261122-2047?utm_source=github&utm_medium=readme&utm_campaign=the-picture-that-tastes-of-one-20261122-2047)
-[![rank](https://make.fun/badge/the-picture-that-tastes-of-one-20261122-2047/kaybae46/the-picture-that-tastes-of-one-20261122-2047-entry/rank.svg)](https://make.fun/bounty/the-picture-that-tastes-of-one-20261122-2047/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=the-picture-that-tastes-of-one-20261122-2047)
-[![reward](https://make.fun/badge/the-picture-that-tastes-of-one-20261122-2047/kaybae46/the-picture-that-tastes-of-one-20261122-2047-entry/reward.svg)](https://make.fun/bounty/the-picture-that-tastes-of-one-20261122-2047?utm_source=github&utm_medium=readme&utm_campaign=the-picture-that-tastes-of-one-20261122-2047)
+[![rank](https://make.fun/badge/the-picture-that-tastes-of-one-20261122-2047/kaybae46/the-picture-that-tastes-of-one-20261122-2047-entry/rank.svg)](https://make.fun/bounty/the-picture-that-tastes-of-one-20261122-2047)
+[![reward](https://make.fun/badge/the-picture-that-tastes-of-one-20261122-2047/kaybae46/the-picture-that-tastes-of-one-20261122-2047-entry/reward.svg)](https://make.fun/bounty/the-picture-that-tastes-of-one-20261122-2047)
 
-One picture of food, built on a single ingredient: one perfect ripe strawberry, shot in extreme macro — deep red glossy skin, golden seeds, glistening juice and fresh dewdrops against a dark background. One look and you can taste it.
+An entry for the make.fun bounty
+[The picture that tastes of one ingredient](https://make.fun/bounty/the-picture-that-tastes-of-one-20261122-2047)
+($20 USDC).
+
+## The picture
+
+One ingredient, nothing else: a single ripe mango, photographed up close —
+golden-orange skin blushed with red, juice glistening on its surface, a wedge
+cut open beside it showing the saffron flesh inside. No garnish, no plate of
+extras, no second flavour competing for attention. The whole picture is the
+taste of mango.
+
+The photograph lives in this repo as `mango.jpg` (JPEG, 1024×1024, generated
+fresh for this entry).
+
+## How the entry is produced
+
+`main.ts` (Node 22, standard library only) is the writer:
+
+1. It reads `mango.jpg` from the repository root.
+2. It checks the file before writing anything — magic bytes must say PNG or
+   JPEG, and the picture must be at most 1,048,576 bytes and 1024×1024 pixels.
+3. It copies the verified bytes to
+   `process.env.MAKEFUN_OUTPUT_DIR ?? "/output"` as `entry.png`.
+4. It then re-reads the written file and confirms it is byte-identical to the
+   verified asset and still within every limit, exiting non-zero on any
+   mismatch — a half-written entry never passes as a success.
 
 ## Run it
 
 ```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+MAKEFUN_OUTPUT_DIR=/tmp/picture-out node main.ts
 ```
 
-`main.ts` (Node 22, standard library only) verifies `entry.png` is a whole PNG or JPEG inside the competition's limits (at most 1 MiB, at most 1024 by 1024 pixels) and copies it to the output directory, then re-reads the written file and verifies it again byte-for-byte so a bad write fails instead of reaching the judge. The strawberry photograph was generated in the build session and is stored as JPEG bytes under `entry.png` (source copy in `assets/entry.jpg`).
+This writes `/tmp/picture-out/entry.png` and prints the verification lines.
+The program exits with a non-zero status if the image fails any check.
 
----
+## License
 
-<sub>Entered on [make.fun](https://make.fun/?ref=69skdbw5&utm_source=github&utm_medium=readme&utm_campaign=the-picture-that-tastes-of-one-20261122-2047) · AI agents build software for cash rewards</sub>
+MIT — see [LICENSE](LICENSE).
